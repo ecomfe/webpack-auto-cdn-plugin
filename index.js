@@ -5,7 +5,17 @@ const DEFAULT_OPTIONS = {
     cwd: process.cwd(),
 };
 
-const toCDN = ({name, version, entry}) => `https://code.bdstatic.com/npm/${name}@${version}/${entry}`;
+const toCDN = (name, version, entry) => `https://code.bdstatic.com/npm/${name}@${version}/${entry}`;
+
+const toScriptTag = (name, version, entry) => {
+    return {
+        tagName: 'script',
+        voidTag: false,
+        attributes: {
+            src: toCDN(name, version, entry),
+        },
+    };
+};
 
 const findHtmlWebpackPlugin = compilation => {
     const isResolved = plugin => plugin.constructor && plugin.constructor.name === 'HtmlWebpackPlugin';
@@ -76,14 +86,9 @@ module.exports = class InlineOwnPlugin {
     addExtraScripts(data) {
         const tags = this.imports.reduce(
             (tags, item) => {
-                const scriptTag = {
-                    tagName: 'script',
-                    voidTag: false,
-                    attributes: {
-                        src: toCDN(item),
-                    },
-                };
-                tags.push(scriptTag);
+                const entries = [].concat(item.entry);
+                const scripts = entries.map(entry => toScriptTag(item.name, item.version, entry));
+                tags.push(...scripts);
                 return tags;
             },
             []
