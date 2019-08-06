@@ -1,0 +1,23 @@
+{
+  "name": "webpack-auto-cdn-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ecomfe/webpack-auto-cdn-plugin.git",
+  "author": "otakustay <otakustay@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "skr lint lib *.js",
+    "test": "skr test"
+  },
+  "devDependencies": {
+    "reskript": "^0.19.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "semver": "^6.3.0"
+  },
+  "peerDependencies": {
+    "html-webpack-plugin": "^4.0.0-beta.8",
+    "webpack": "^4.39.1"
+  }
+}
