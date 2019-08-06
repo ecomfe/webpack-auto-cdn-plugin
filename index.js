@@ -37,8 +37,7 @@ module.exports = class InlineOwnPlugin {
         const externals = compiler.options.externals || {};
 
         if (!isPlainObject(externals)) {
-            // TODO: 优化提示信息
-            throw new Error('invalid externals');
+            throw new Error('Webpack externals must be a plain object if it exists');
         }
 
         const {cwd} = this.options;
